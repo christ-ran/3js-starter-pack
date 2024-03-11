@@ -15,7 +15,9 @@ class WebGL {
     constructor(canvas) {
         this.canvas = canvas;
         this.gui = new GUI();
-        this.uniforms = {};
+        this.uniforms = {
+            u_time: { value: 0 }
+        };
         this.settings = {};
     }
 
@@ -35,7 +37,12 @@ class WebGL {
 
     createMesh() {
         const sphereGeometry = new THREE.SphereGeometry(4, 100, 100);
-        const material = new THREE.MeshStandardMaterial({ color: 0xff0000, wireframe: true });
+        const material = new THREE.ShaderMaterial({ 
+            uniforms: this.uniforms,
+            vertexShader,
+            fragmentShader,
+            wireframe: true,
+        });
 
         this.mesh = new THREE.Mesh(sphereGeometry, material);
         this.scene.add(this.mesh);

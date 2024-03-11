@@ -1,5 +1,3 @@
-#pragma glslify: snoise3 =  require(glsl-noise/simplex/3d);
-
 varying vec2 vUv;
 
 void main() {
