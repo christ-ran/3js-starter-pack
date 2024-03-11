@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { getFOV } from "./helper";
+import GUI from "lil-gui";
 import vertexShader from "../shaders/vertex.glsl";
 import fragmentShader from "../shaders/fragment.glsl";
 
@@ -9,18 +10,21 @@ const g_pixelRatio = window.devicePixelRatio;
 const g_ratio = g_width / g_height;
 
 class WebGL {
-    _perspective = 1000;
+    perspective = 1000;
 
     constructor(canvas) {
         this.canvas = canvas;
+        this.gui = new GUI();
+        this.uniforms = {};
+        this.settings = {};
     }
 
     setup() {
         this.scene = new THREE.Scene();
 
-        const fov = getFOV(g_height, this._perspective);
-        this.camera = new THREE.PerspectiveCamera(fov, g_ratio, 0.1, this._perspective);
-        this.camera.position.set(0, 0, this._perspective);
+        const fov = getFOV(g_height, this.perspective);
+        this.camera = new THREE.PerspectiveCamera(fov, g_ratio, 0.1, this.perspective);
+        this.camera.position.set(0, 0, this.perspective);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(g_width, g_height);
@@ -30,10 +34,10 @@ class WebGL {
     }
 
     createMesh() {
-        const planeGeometry = new THREE.PlaneGeometry(1, 1);
-        const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+        const sphereGeometry = new THREE.SphereGeometry(4, 100, 100);
+        const material = new THREE.MeshStandardMaterial({ color: 0xff0000, wireframe: true });
 
-        this.mesh = new THREE.Mesh(planeGeometry, material);
+        this.mesh = new THREE.Mesh(sphereGeometry, material);
         this.scene.add(this.mesh);
     }
 

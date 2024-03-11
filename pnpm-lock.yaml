@@ -11,6 +11,9 @@ dependencies:
   glslify:
     specifier: ^7.1.1
     version: 7.1.1
+  lil-gui:
+    specifier: ^0.19.2
+    version: 0.19.2
   three:
     specifier: ^0.162.0
     version: 0.162.0
@@ -652,6 +655,10 @@ packages:
 
   /isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
+    dev: false
+
+  /lil-gui@0.19.2:
+    resolution: {integrity: sha512-nU8j4ND702ouGfQZoaTN4dfXxacvGOAVK0DtmZBVcUYUAeYQXLQAjAN50igMHiba3T5jZyKEjXZU+Ntm1Qs6ZQ==}
     dev: false
 
   /map-limit@0.0.1:
