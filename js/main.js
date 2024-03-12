@@ -15,11 +15,11 @@ const g_settings = {};
 
 class WebGL {
     perspective = 1000;
+    uniforms = g_uniforms;
+    settings = g_settings;
 
     constructor(canvas) {
         this.canvas = canvas;
-        this.uniforms = g_uniforms;
-        this.settings = g_settings;
 
         this.gui = new GUI();
         this.scene = new THREE.Scene();
