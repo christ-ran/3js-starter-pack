@@ -27,7 +27,7 @@ class WebGL {
 
     setup() {
         this.camera = new THREE.PerspectiveCamera(75, g_ratio);
-        this.camera.position.set(0, 0, this.settings.z);
+        this.camera.position.set(0, 0, 1);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(g_width, g_height);
