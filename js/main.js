@@ -1,61 +1,52 @@
 import * as THREE from "three";
-import GUI from "lil-gui";
 import vertexShader from "../shaders/vertex.glsl";
 import fragmentShader from "../shaders/fragment.glsl";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const g_width = window.innerWidth;
-const g_height = window.innerHeight;
-const g_pixelRatio = window.devicePixelRatio;
-const g_ratio = g_width / g_height;
-const g_uniforms = {
-    u_time: { value: 0 }
-};
-const g_settings = {};
+const width = window.innerWidth;
+const height = window.innerHeight;
+const pixelRatio = window.devicePixelRatio;
+const ratio = width / height;
 
 class WebGL {
     perspective = 1000;
-    uniforms = g_uniforms;
-    settings = g_settings;
+    uniforms = { u_time: { value: 0 } };
 
     constructor(canvas) {
         this.canvas = canvas;
-
-        this.gui = new GUI();
         this.scene = new THREE.Scene();
+        this.clock = new THREE.Clock();
     }
 
     setup() {
-        this.camera = new THREE.PerspectiveCamera(75, g_ratio);
+        this.camera = new THREE.PerspectiveCamera(75, ratio);
         this.camera.position.set(0, 0, 1);
 
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(g_width, g_height);
-        this.renderer.setPixelRatio(g_pixelRatio);
+        this.renderer = new THREE.WebGLRenderer({ alpha: true });
+        this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(pixelRatio);
         this.canvas.appendChild(this.renderer.domElement);
-
-        this.setupExtension();
-    }
-
-    setupExtension() {
-        this.control = new OrbitControls(this.camera, this.renderer.domElement);
     }
 
     createMesh() {
-        const sphereGeometry = new THREE.PlaneGeometry(1, 1, 100, 100);
+        const planeGeometry = new THREE.PlaneGeometry(1, 1, 100, 100);
         const material = new THREE.ShaderMaterial({ 
             uniforms: this.uniforms,
             vertexShader,
             fragmentShader,
         });
 
-        this.mesh = new THREE.Mesh(sphereGeometry, material);
+        this.mesh = new THREE.Mesh(planeGeometry, material);
         this.scene.add(this.mesh);
+    }
+
+    animate() {
+
     }
 
     render() {
         requestAnimationFrame(this.render.bind(this));
         this.renderer.render(this.scene, this.camera);
+        this.animate();
     }
 }
 
